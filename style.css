@@ -1,0 +1,21 @@
+p {
+	display: inline;
+	padding: 15px;
+}
+
+button {
+	margin: 10px;	
+	padding: 5px;
+	width: 200px;
+}
+
+table, th, td {
+	border:1px solid black;
+  }
+
+td {
+	text-align: center;
+}
+#1 {
+	color: red;
+}
