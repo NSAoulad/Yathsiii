@@ -29,8 +29,9 @@ const rollClass = document.querySelectorAll(".saveRoll");
 let choosePoints = false;
 rollClass.forEach((roll) => {
 	roll.addEventListener("click", () => {
-			if (rollsLeft < 3 && choosePoints === false) {
-				let lockPoint = roll.id - 1;
+			let lockPoint = roll.id - 1;	
+			if (rollsLeft < 3 && choosePoints === false && combinations[lockPoint].locked === false) {
+				if (combinations[lockPoint].value === 0) roll.textContent = 0;
 				combinations[lockPoint].locked = true;
 				roll.style.fontWeight = 'bold';
 				roll.style.color = 'black';
@@ -39,10 +40,14 @@ rollClass.forEach((roll) => {
 				btn.disabled = false;
 				btn.style.opacity =	 '1';
 				for (i=0; i<5; i++) {
+					dices[i].throwable = true;
 					let diceText = document.getElementById(`dice${i}`);
 					diceText.textContent = i+1;
+					diceText.style.opacity = '1';
+					diceText.style.background = 'white';
 					console.log(i);
 				}
+			emptyScoreboard();
 		}
 	});
 });
@@ -124,8 +129,7 @@ let fives = new Scoreboard();
 let sixes = new Scoreboard();
 let combinations = [ones, twos, threes, fours, fives, sixes];
 
-function fillScoreboard() {
-
+function emptyScoreboard() {
 	for (j=1; j<=6; j++) {
 		if (combinations[j-1].locked === false) {
 			let rollTd = document.getElementById(j);
@@ -133,6 +137,10 @@ function fillScoreboard() {
 			combinations[j-1].value = 0;
 		} 
 	}
+}
+
+function fillScoreboard() {
+	emptyScoreboard();
 	let i = 0;
 	while (i < dices.length) {
 		let currentContent = 0;
@@ -179,8 +187,6 @@ function fillScoreboard() {
 		i++;
 	}
 }
-
-
 
 
 
